@@ -15,5 +15,8 @@ kubectl testkube run test -l "test-type=postman-collection"
 # Listing executions
 kubectl testkube get executions
 
+# Get single execution
+kubectl testkube get execution "postman-test-4"
+
 # Watching an execution
-kubectl testkube watch execution "postman-test-1"
+kubectl testkube watch execution "postman-test-4"
