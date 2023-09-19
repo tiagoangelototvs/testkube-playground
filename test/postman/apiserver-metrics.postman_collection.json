@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "6378e4a8-a0c2-4375-a659-dbc01a1c350d",
+		"name": "APIServer Metrics",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "651611"
+	},
+	"item": [
+		{
+			"name": "http://prometheus.lvh.me/api/v1/query?query=sum(increase(apiserver_request_total[5m]))",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});",
+							"",
+							"pm.test(\"JSON response value greater than 1\", () => {",
+							"    const responseJson = pm.response.json();",
+							"    const result = Math.floor(responseJson.data.result[0].value[1]);",
+							"    pm.expect(result > 1)",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://prometheus-server.prometheus/api/v1/query?query=sum(increase(apiserver_request_total[1h]))",
+					"protocol": "http",
+					"host": [
+						"prometheus-server",
+						"prometheus"
+					],
+					"path": [
+						"api",
+						"v1",
+						"query"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "sum(increase(apiserver_request_total[1h]))"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
