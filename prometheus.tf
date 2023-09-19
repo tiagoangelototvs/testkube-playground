@@ -10,11 +10,11 @@ resource "helm_release" "prometheus" {
   values = [
     yamlencode({
       prometheus-node-exporter = { enabled = false }
-      kube-state-metrics       = { enabled = true }
+      kube-state-metrics       = { enabled = false }
       prometheus-pushgateway   = { enabled = false }
       alertmanager             = { enabled = false }
+      serverFiles              = { "prometheus.yml" = { scrape_configs = [] } }
       server                   = {
-        extraFlags = ["web.enable-remote-write-receiver"]
         ingress    = { enabled = true, hosts = ["prometheus.${local.cluster_host}"], ingressClassName = "nginx" }
       }
     })
