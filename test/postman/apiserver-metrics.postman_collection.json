@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "http://prometheus.lvh.me/api/v1/query?query=sum(increase(apiserver_request_total[5m]))",
+			"name": "http://prometheus-server.prometheus/api/v1/query?query=sum(increase(apiserver_request_total[5m]))",
 			"event": [
 				{
 					"listen": "test",
