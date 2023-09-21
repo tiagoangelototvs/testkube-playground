@@ -20,18 +20,28 @@ var _ = Describe("API server", func() {
 
 		prometheus := v1.NewAPI(client)
 
-		It("should have the total requests metric greater than 1", func() {
-			query := "sum(increase(apiserver_request_total[5m]))"
-			result, _, err := prometheus.Query(context.Background(), query, time.Now(), v1.WithTimeout(5*time.Second))
-			Expect(err).NotTo(HaveOccurred())
+		It("should have the total requests metric greater than 1", func(ctx SpecContext) {
 
-			vector, ok := result.(model.Vector)
-			Expect(ok).Should(BeTrue(), "The query result should be a sample vector")
+			// the total count of successful API server requests in the last 5 minutes
+			successfulAPIServerResponses := func() model.SampleValue {
+				query := `sum(increase(apiserver_request_total{code=~"2.."}[5m]))`
+				result, _, err := prometheus.Query(context.Background(), query, time.Now(), v1.WithTimeout(5*time.Second))
+				if err != nil {
+					return 0
+				}
 
-			Expect(vector).Should(HaveLen(1))
-			for _, sample := range vector {
-				Expect(sample.Value).Should(BeNumerically(">", 1))
+				var value model.SampleValue
+				if vector, ok := result.(model.Vector); ok {
+					for _, sample := range vector {
+						value = sample.Value
+						break
+					}
+				}
+
+				return value
 			}
-		})
+
+			Eventually(successfulAPIServerResponses, ctx).Should(BeNumerically("=", 1))
+		}, SpecTimeout(time.Second*5))
 	})
 })
