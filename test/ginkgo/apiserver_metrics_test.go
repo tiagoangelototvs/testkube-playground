@@ -41,7 +41,7 @@ var _ = Describe("API server", func() {
 				return value
 			}
 
-			Eventually(successfulAPIServerResponses, ctx).Should(BeNumerically("=", 1))
+			Eventually(successfulAPIServerResponses, ctx).Should(BeNumerically(">", 1))
 		}, SpecTimeout(time.Second*5))
 	})
 })
