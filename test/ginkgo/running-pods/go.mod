@@ -1,6 +1,6 @@
 module test/ginkgo/running-pods
 
-go 1.19
+go 1.21
 
 require (
 	github.com/hashicorp/go-multierror v1.1.1
