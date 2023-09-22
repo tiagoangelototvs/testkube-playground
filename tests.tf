@@ -27,7 +27,7 @@ resource "kubectl_manifest" "test_postman" {
       content:
         repository:
           branch: main
-          path: test/postman/apiserver-metrics.postman_collection.json
+          path: test/postman/apiserver-metrics/apiserver-metrics.postman_collection.json
   YAML
 
   depends_on = [
@@ -49,7 +49,7 @@ resource "kubectl_manifest" "test_ginkgo" {
       content:
         repository:
           branch: main
-          path: test/ginkgo
+          path: test/ginkgo/apiserver-metrics
   YAML
 
   depends_on = [

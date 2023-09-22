@@ -1,4 +1,4 @@
-package ginkgo_test
+package apiserver_metrics_test
 
 import (
 	"context"
