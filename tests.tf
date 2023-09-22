@@ -14,12 +14,12 @@ resource "kubectl_manifest" "test_source_testkube_playground" {
   depends_on = [helm_release.testkube]
 }
 
-resource "kubectl_manifest" "test_postman" {
+resource "kubectl_manifest" "test_apiserver_metrics_with_postman" {
   yaml_body = <<-YAML
     apiVersion: tests.testkube.io/v3
     kind: Test
     metadata:
-      name: postman
+      name: ensure-apiserver-metrics-with-postman
       namespace: ${kubernetes_namespace_v1.testkube.metadata[0].name}
     spec:
       type: postman/collection
@@ -36,12 +36,12 @@ resource "kubectl_manifest" "test_postman" {
   ]
 }
 
-resource "kubectl_manifest" "test_ginkgo" {
+resource "kubectl_manifest" "test_apiserver_metrics_with_ginkgo" {
   yaml_body = <<-YAML
     apiVersion: tests.testkube.io/v3
     kind: Test
     metadata:
-      name: ginkgo
+      name: ensure-apiserver-metrics-with-ginkgo
       namespace: ${kubernetes_namespace_v1.testkube.metadata[0].name}
     spec:
       type: ginkgo/test
