@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "0c375350-12ef-4bd6-8469-c7ba57b04614",
+		"name": "Testing Grafana",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "651611"
+	},
+	"item": [
+		{
+			"name": "http://grafana.lvh.me/api/datasources",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Prometheus as default datasource\", () => {",
+							"    const list = pm.response.json();",
+							"    const [first] = list.filter(obj => obj.isDefault)",
+							"    pm.expect(first.name).to.eql(\"Prometheus\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{USERNAME}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{HOST}}/api/datasources",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"datasources"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "PASSWORD",
+			"value": ""
+		},
+		{
+			"key": "USERNAME",
+			"value": ""
+		},
+		{
+			"key": "HOST",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
