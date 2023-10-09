@@ -50,7 +50,7 @@ func loadRestConfig() (*rest.Config, error) {
 		return nil, multierror.Append(result, err2)
 	}
 
-	config, err3 := clientcmd.BuildConfigFromFlags("", path.Join(homeDir, ".kube/config"))
+	config, err3 := clientcmd.BuildConfigFromFlags("", path.Join(homeDir, ".kube", "config"))
 	if err3 != nil {
 		return nil, multierror.Append(result, err3)
 	}
