@@ -2,10 +2,10 @@ resource "helm_release" "prometheus" {
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "prometheus"
 
-  name       = "prometheus"
-  version    = "25.0.0"
+  name    = "prometheus"
+  version = "25.1.0"
 
-  namespace  = kubernetes_namespace_v1.prometheus.metadata[0].name
+  namespace = kubernetes_namespace_v1.prometheus.metadata[0].name
 
   values = [
     yamlencode({
@@ -14,7 +14,7 @@ resource "helm_release" "prometheus" {
       prometheus-pushgateway   = { enabled = false }
       alertmanager             = { enabled = false }
       server                   = {
-        ingress    = { enabled = true, hosts = ["prometheus.${local.cluster_host}"], ingressClassName = "nginx" }
+        ingress = { enabled = true, hosts = ["prometheus.${local.cluster_host}"], ingressClassName = "nginx" }
       }
     })
   ]

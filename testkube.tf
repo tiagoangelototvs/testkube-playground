@@ -3,7 +3,7 @@ resource "helm_release" "testkube" {
   chart      = "testkube"
 
   name    = "testkube"
-  version = "1.14.8"
+  version = "1.14.10"
 
   namespace = kubernetes_namespace_v1.testkube.metadata[0].name
 

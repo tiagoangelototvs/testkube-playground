@@ -3,7 +3,7 @@ resource "helm_release" "ingress_nginx" {
   chart      = "ingress-nginx"
 
   name    = "nginx"
-  version = "4.7.2"
+  version = "4.8.1"
 
   namespace = kubernetes_namespace_v1.nginx.metadata[0].name
 
