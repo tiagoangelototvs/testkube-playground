@@ -3,14 +3,14 @@ resource "helm_release" "grafana" {
   chart      = "grafana"
 
   name    = "grafana"
-  version = "6.60.4"
+  version = "7.0.3"
 
   namespace = kubernetes_namespace_v1.grafana.metadata[0].name
 
   values = [
     yamlencode({
-      ingress       = { enabled = true, hosts = ["grafana.${local.cluster_host}"], ingressClassName = "nginx" }
-      admin         = { existingSecret = kubernetes_secret_v1.grafana_credentials.metadata[0].name }
+      ingress = { enabled = true, hosts = ["grafana.${local.cluster_host}"], ingressClassName = "nginx" }
+      admin   = { existingSecret = kubernetes_secret_v1.grafana_credentials.metadata[0].name }
       "grafana.ini" = {
         "auth.anonymous" = {
           enabled  = true
@@ -20,7 +20,7 @@ resource "helm_release" "grafana" {
       }
       datasources = {
         "datasources.yaml" = {
-          apiVersion  = 1
+          apiVersion = 1
           datasources = [
             {
               name      = "Prometheus"
@@ -35,7 +35,7 @@ resource "helm_release" "grafana" {
       dashboardProviders = {
         "dashboardproviders.yaml" = {
           apiVersion = 1
-          providers  = [
+          providers = [
             {
               disableDeletion = false
               editable        = true
