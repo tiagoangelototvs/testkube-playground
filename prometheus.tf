@@ -3,7 +3,7 @@ resource "helm_release" "prometheus" {
   chart      = "prometheus"
 
   name    = "prometheus"
-  version = "25.1.0"
+  version = "25.4.0"
 
   namespace = kubernetes_namespace_v1.prometheus.metadata[0].name
 
@@ -13,7 +13,7 @@ resource "helm_release" "prometheus" {
       kube-state-metrics       = { enabled = false }
       prometheus-pushgateway   = { enabled = false }
       alertmanager             = { enabled = false }
-      server                   = {
+      server = {
         ingress = { enabled = true, hosts = ["prometheus.${local.cluster_host}"], ingressClassName = "nginx" }
       }
     })
