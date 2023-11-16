@@ -3,7 +3,7 @@ resource "helm_release" "prometheus" {
   chart      = "prometheus"
 
   name    = "prometheus"
-  version = "25.4.0"
+  version = "25.6.0"
 
   namespace = kubernetes_namespace_v1.prometheus.metadata[0].name
 
